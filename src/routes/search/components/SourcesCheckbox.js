@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { Form, Checkbox, Accordion, Icon } from 'semantic-ui-react';
 
-const SourcesCheckbox = ({ sources }) => {
-    const [values, setValues] = useState([]);
+const SourcesCheckbox = ({ sources, selected, onSelect }) => {
     const [active, setActive] = useState(false);
 
     const handleChange = (e, { value }) => {
-        if (values.indexOf(value) !== -1) {
-            setValues(values.filter(val => val !== value));
+        if (selected.indexOf(value) !== -1) {
+            onSelect(selected.filter(val => val !== value));
         } else {
-            setValues([...values, value]);
+            onSelect([...selected, value]);
         }
     };
 
@@ -32,7 +31,7 @@ const SourcesCheckbox = ({ sources }) => {
                                     <Checkbox
                                         label={source.name}
                                         value={source.id}
-                                        checked={values.indexOf(source.id) !== -1}
+                                        checked={selected.indexOf(source.id) !== -1}
                                         onChange={handleChange}
                                     />
                                 </Form.Field>

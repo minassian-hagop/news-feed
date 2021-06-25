@@ -3,11 +3,10 @@ import { Form, Radio, Accordion, Icon } from 'semantic-ui-react';
 
 import CATEGORIES from '../../../constants/newsapi-categories.js';
 
-const CategorySelectRadio = () => {
-    const [value, setValue] = useState();
+const CategorySelectRadio = ({ selected, onSelect }) => {
     const [active, setActive] = useState(false);
 
-    const handleChange = (e, { value }) => setValue(value);
+    const handleChange = (e, { value }) => onSelect(value);
 
     const handleAccordionClick = () => {
         setActive(prevState => !prevState);
@@ -29,7 +28,7 @@ const CategorySelectRadio = () => {
                                         label={category.toUpperCase()}
                                         name="category"
                                         value={category}
-                                        checked={value === category}
+                                        checked={selected === category}
                                         onChange={handleChange}
                                     />
                                 </Form.Field>

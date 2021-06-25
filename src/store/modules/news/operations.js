@@ -12,7 +12,6 @@ import * as URLS from '../../../constants/api.js';
 const fetchSources = () => dispatch => {
     axios.get(URLS.SOURCES)
         .then(res => {
-            console.log(res)
             if (res.status === 200 && res.data.status === 'ok') {
                 dispatch(setSources(res.data.sources));
             }

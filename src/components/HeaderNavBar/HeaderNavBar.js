@@ -1,23 +1,34 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Input, Button, Icon, Header } from 'semantic-ui-react';
 
 import './HeaderNavBar.scss';
 
-const HeaderNavBar = () => {
+const HeaderNavBar = ({ search_filter, setSearchFilter, clearFilters }) => {
+    const history = useHistory();
+
     const inputRef = useRef(null);
     const [isSearchActive, setIsSearchActive] = useState(false);
 
-    const closeSearch = useCallback((event) => {
+    const closeSearch = useCallback(() => {
         setIsSearchActive(false);
-        inputRef.current.inputRef.current.value = '';
+    }, []);
+
+    const handlePressEnter = useCallback((event) => {
+        if (event.key === 'Enter') {
+            closeSearch();
+        }
     }, [])
 
     useEffect(() => {
         document.addEventListener('click', closeSearch);
+        inputRef.current?.inputRef.current && 
+            inputRef.current.inputRef.current.addEventListener('keyup', handlePressEnter);
 
         return () => {
             document.removeEventListener('click', closeSearch);
+            inputRef.current?.inputRef.current && 
+                inputRef.current.inputRef.current.removeEventListener('keyup', handlePressEnter);
         }
     }, []);
 
@@ -25,22 +36,34 @@ const HeaderNavBar = () => {
         if (isSearchActive) {
             inputRef.current.focus();
         } else {
-            const searchValue = inputRef.current.inputRef.current.value;
-            inputRef.current.inputRef.current.value = '';
-            // Submit search
+            const searchValue = inputRef.current.inputRef.current.value.trim();
+            if (searchValue !== search_filter) {
+                setSearchFilter(searchValue);
+            }
         }
     }, [isSearchActive]);
+
+    useEffect(() => {
+        inputRef.current.inputRef.current.value = search_filter;
+    }, [search_filter]);
 
     const toggleSearch = (event) => {
         event.stopPropagation();
         setIsSearchActive(!isSearchActive);
     }
 
+    const handleHeaderClick = () => {
+        if (history.location.pathname !== '/') {
+            clearFilters();
+            history.push('/');
+        }
+    }
+
     return (
         <div className="navbar">
-            <Link to="/" className="navbar__item">
+            <div className="navbar__item navbar__item_header" onClick={handleHeaderClick}>
                 <Header content="News" />
-            </Link>
+            </div>
             <Input
                 action={
                     <Button onClick={toggleSearch}>

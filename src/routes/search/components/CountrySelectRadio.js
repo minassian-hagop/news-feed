@@ -4,11 +4,10 @@ import countryLookup from 'country-code-lookup';
 
 import COUNTRIES from '../../../constants/newsapi-country-codes';
 
-const CountrySelectRadio = () => {
-    const [value, setValue] = useState();
+const CountrySelectRadio = ({ selected, onSelect }) => {
     const [active, setActive] = useState(false);
 
-    const handleChange = (e, { value }) => setValue(value);
+    const handleChange = (e, { value }) => onSelect(value);
 
     const handleAccordionClick = () => {
         setActive(prevState => !prevState);
@@ -33,7 +32,7 @@ const CountrySelectRadio = () => {
                                             label={countryObj ? countryObj.country : countryCode}
                                             name="country"
                                             value={countryCode}
-                                            checked={value === countryCode}
+                                            checked={selected === countryCode}
                                             onChange={handleChange}
                                         />
                                     </Form.Field>
