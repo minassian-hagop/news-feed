@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Input, Button, Icon } from 'semantic-ui-react';
+import { Input, Button, Icon, Header } from 'semantic-ui-react';
 
 import './HeaderNavBar.scss';
 
@@ -38,7 +38,9 @@ const HeaderNavBar = () => {
 
     return (
         <div className="navbar">
-            <Link to="/" className="navbar__item">News</Link>
+            <Link to="/" className="navbar__item">
+                <Header content="News" />
+            </Link>
             <Input
                 action={
                     <Button onClick={toggleSearch}>
