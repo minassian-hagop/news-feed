@@ -1,4 +1,8 @@
+import { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { newsOperations } from './store/modules/news/index'
 
 import './App.scss';
 
@@ -8,7 +12,11 @@ import Home from './routes/home';
 import Search from './routes/search';
 import NotFound from './routes/not-found';
 
-const App = () => {
+const App = ({ fetchSources }) => {
+  useEffect(() => {
+    fetchSources();
+  }, []);
+
   return (
     <Router>
       <div className="page-layout">
@@ -25,4 +33,8 @@ const App = () => {
   );
 }
 
-export default App;
+const mapDispatchToProps = {
+  fetchSources: newsOperations.fetchSources
+}
+
+export default connect(null, mapDispatchToProps)(App);
