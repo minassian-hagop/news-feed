@@ -17,6 +17,7 @@ const HeaderNavBar = ({ search_filter, setSearchFilter, clearFilters }) => {
     const handlePressEnter = useCallback((event) => {
         if (event.key === 'Enter') {
             closeSearch();
+            history.push('/search');
         }
     }, []);
 
