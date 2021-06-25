@@ -18,7 +18,7 @@ const HeaderNavBar = ({ search_filter, setSearchFilter, clearFilters }) => {
         if (event.key === 'Enter') {
             closeSearch();
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
         document.addEventListener('click', closeSearch);

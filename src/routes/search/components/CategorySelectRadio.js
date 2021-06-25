@@ -22,8 +22,8 @@ const CategorySelectRadio = ({ selected, onSelect }) => {
                 <Accordion.Content active={active}>
                     <div className="checkbox-container">
                         {
-                            CATEGORIES.map(category => (
-                                <Form.Field width="6" inline>
+                            CATEGORIES.map((category, index) => (
+                                <Form.Field width="6" inline key={index}>
                                     <Radio
                                         label={category.toUpperCase()}
                                         name="category"

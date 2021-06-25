@@ -23,11 +23,11 @@ const CountrySelectRadio = ({ selected, onSelect }) => {
                 <Accordion.Content active={active}>
                     <div className="checkbox-container">
                         {
-                            COUNTRIES.map(countryCode => {
+                            COUNTRIES.map((countryCode, index) => {
                                 const countryObj = countryLookup.byIso(countryCode);
 
                                 return (
-                                    <Form.Field width="5" inline>
+                                    <Form.Field width="5" inline key={index}>
                                         <Radio
                                             label={countryObj ? countryObj.country : countryCode}
                                             name="country"

@@ -10,7 +10,7 @@ import configureStore from './store';
 
 axios.interceptors.request.use(
   request => {
-    request.headers['X-Api-Key'] = process.env.REACT_APP_API_KEY;
+    request.headers['x-api-key'] = process.env.REACT_APP_API_KEY;
     return request;
   },
   error => {

@@ -26,8 +26,8 @@ const SourcesCheckbox = ({ sources, selected, onSelect }) => {
                 <Accordion.Content active={active}>
                     <div className="checkbox-container">
                         {
-                            sources.map(source => (
-                                <Form.Field width="5" inline>
+                            sources.map((source, index) => (
+                                <Form.Field width="5" inline key={index}>
                                     <Checkbox
                                         label={source.name}
                                         value={source.id}
